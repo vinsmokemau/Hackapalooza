@@ -1,5 +1,11 @@
+"""Classify Animals sounds."""
 import numpy as np
-from pyaudioclassification import feature_extraction, train, predict, print_leaderboard
+from pyaudioclassification import (
+    feature_extraction,
+    train,
+    predict,
+    print_leaderboard,
+)
 
 parent_dir = '.'
 
@@ -7,7 +13,7 @@ parent_dir = '.'
 if np.DataSource().exists("./feat.npy") and np.DataSource().exists("./label.npy"):
     features, labels = np.load('./feat.npy'), np.load('./label.npy')
 else:
-    features, labels = feature_extraction('./real/')
+    features, labels = feature_extraction('./data/')
     np.save('./feat.npy', features)
     np.save('./label.npy', labels)
 
@@ -20,5 +26,5 @@ else:
     model.save('./model.h5')
 
 # step 3: prediction
-pred = predict(model, './alerta_test.ogg')
-print_leaderboard(pred, './real/')
+pred = predict(model, './cow_test.wav')
+print_leaderboard(pred, './data/')
